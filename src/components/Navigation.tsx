@@ -48,16 +48,16 @@ const Navigation = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-glaucous hover:text-eggshell smooth-transition font-medium"
+                className="text-eggshell/70 hover:text-eggshell smooth-transition font-medium"
               >
                 {item.label}
               </button>
             ))}
             <Button 
-              onClick={() => scrollToSection('contact')}
+              onClick={() => window.location.href = '/dashboard'}
               className="bg-blood-red hover:bg-blood-red/80 text-eggshell px-6 py-2 font-semibold glow-effect smooth-transition"
             >
-              Contact Us
+              Dashboard
             </Button>
           </div>
 
@@ -73,23 +73,23 @@ const Navigation = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-oxford-blue/95 backdrop-blur-md border-t border-glaucous/20">
+        <div className="md:hidden bg-oxford-blue/95 backdrop-blur-md border-t border-eggshell/20">
           <div className="container-width py-4">
             <div className="flex flex-col gap-4">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-glaucous hover:text-eggshell smooth-transition font-medium text-left py-2"
+                  className="text-eggshell/70 hover:text-eggshell smooth-transition font-medium text-left py-2"
                 >
                   {item.label}
                 </button>
               ))}
               <Button 
-                onClick={() => scrollToSection('contact')}
+                onClick={() => window.location.href = '/dashboard'}
                 className="bg-blood-red hover:bg-blood-red/80 text-eggshell font-semibold mt-2 w-full"
               >
-                Contact Us
+                Dashboard
               </Button>
             </div>
           </div>

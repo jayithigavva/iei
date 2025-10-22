@@ -6,16 +6,23 @@
 
 @layer base {
   :root {
-    /* IEI Brand Colors - Blue, Red, White, Light Blue */
-    --pure-blue: 220 100% 50%;         /* Pure Blue #0066FF */
-    --bright-red: 0 100% 50%;          /* Pure Red #FF0000 */
-    --pure-white: 0 0% 100%;           /* Pure White #FFFFFF */
-    --light-blue: 197 71% 73%;         /* Light Blue #87CEEB */
-    --deep-blue: 220 100% 25%;         /* Deep Blue for backgrounds */
+    /* IEI Brand Colors */
+    --oxford-blue: 215 25% 27%;        /* #384456 Dark blue-gray */
+    --federal-blue: 216 53% 25%;       /* #1e3a5f Federal blue */
+    --glaucous: 214 32% 55%;           /* #6b84a3 Light grayish blue */
+    --blood-red: 349 79% 50%;          /* #ef476f Blood red accent */
+    --eggshell: 40 43% 95%;            /* #f4f1de Eggshell white */
+    
+    /* Legacy colors */
+    --pure-blue: 220 100% 50%;
+    --bright-red: 0 100% 50%;
+    --pure-white: 0 0% 100%;
+    --light-blue: 197 71% 73%;
+    --deep-blue: 220 100% 25%;
 
     /* Design System Tokens */
-    --background: var(--deep-blue);
-    --foreground: var(--pure-white);
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
 
     --card: var(--pure-blue);
     --card-foreground: var(--pure-white);
@@ -117,7 +124,9 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply font-sans;
+    background: #0a0f1e !important;
+    color: #ffffff !important;
     scroll-behavior: smooth;
   }
 }

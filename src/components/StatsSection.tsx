@@ -59,7 +59,7 @@ const StatsSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-xl text-glaucous"
+            className="text-xl text-eggshell/80"
           >
             Making a difference in India's informal economy
           </motion.p>
@@ -71,13 +71,13 @@ const StatsSection = () => {
             initial={{ opacity: 0, y: 40, scale: 0.8 }}
             animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.8 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="group"
+            className="group bg-blood-red/10 p-8 rounded-xl border-2 border-blood-red/40 hover:border-blood-red smooth-transition"
           >
             <div className="text-5xl md:text-6xl font-bold text-blood-red mb-4 group-hover:scale-110 smooth-transition">
               {volunteers}+
             </div>
             <div className="text-xl font-semibold text-eggshell mb-2">Volunteers</div>
-            <div className="text-glaucous">
+            <div className="text-eggshell/70">
               Passionate youth driving change
             </div>
           </motion.div>
@@ -87,13 +87,13 @@ const StatsSection = () => {
             initial={{ opacity: 0, y: 40, scale: 0.8 }}
             animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.8 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="group"
+            className="group bg-federal-blue/10 p-8 rounded-xl border-2 border-federal-blue/40 hover:border-federal-blue smooth-transition"
           >
-            <div className="text-5xl md:text-6xl font-bold text-blood-red mb-4 group-hover:scale-110 smooth-transition">
+            <div className="text-5xl md:text-6xl font-bold text-federal-blue mb-4 group-hover:scale-110 smooth-transition">
               {surveyed}+
             </div>
             <div className="text-xl font-semibold text-eggshell mb-2">Surveyed</div>
-            <div className="text-glaucous">
+            <div className="text-eggshell/70">
               Real stories collected from the community
             </div>
           </motion.div>
@@ -103,13 +103,13 @@ const StatsSection = () => {
             initial={{ opacity: 0, y: 40, scale: 0.8 }}
             animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.8 }}
             transition={{ duration: 0.6, delay: 1.0 }}
-            className="group"
+            className="group bg-blood-red/10 p-8 rounded-xl border-2 border-blood-red/40 hover:border-blood-red smooth-transition"
           >
             <div className="text-5xl md:text-6xl font-bold text-blood-red mb-4 group-hover:scale-110 smooth-transition">
               {partners}
             </div>
             <div className="text-xl font-semibold text-eggshell mb-2">NGO Partners</div>
-            <div className="text-glaucous">
+            <div className="text-eggshell/70">
               Collaborative relationships
             </div>
           </motion.div>

@@ -59,7 +59,7 @@ const WorkSection = () => {
                 }}
                 transition={{ duration: 0.8, delay: index * 0.2, type: "spring", stiffness: 100 }}
                 viewport={{ once: true }}
-                className="bg-oxford-blue/30 backdrop-blur-sm border border-glaucous/20 rounded-xl p-8 text-center smooth-transition group cursor-pointer transform-gpu perspective-1000"
+                className="bg-oxford-blue/30 backdrop-blur-sm border-2 border-federal-blue/30 hover:border-blood-red rounded-xl p-8 text-center smooth-transition group cursor-pointer transform-gpu perspective-1000"
                 style={{ transformStyle: "preserve-3d" }}
                 onClick={() => openStory(worker)}
               >
@@ -93,8 +93,8 @@ const WorkSection = () => {
                 </h3>
 
                 {/* Tap or Scan Text */}
-                <div className="flex items-center justify-center gap-2 text-glaucous">
-                  <Eye className="w-4 h-4" />
+                <div className="flex items-center justify-center gap-2 text-eggshell/80">
+                  <Eye className="w-4 h-4 text-blood-red" />
                   <span className="text-sm">Scan to View Story</span>
                 </div>
               </motion.div>
@@ -117,13 +117,13 @@ const WorkSection = () => {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              className="bg-oxford-blue border border-glaucous/30 rounded-2xl p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto relative"
+              className="bg-oxford-blue border-2 border-blood-red/50 rounded-2xl p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto relative"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
                 onClick={closeStory}
-                className="absolute top-4 right-4 w-8 h-8 bg-blood-red rounded-full flex items-center justify-center hover:bg-blood-red/80 smooth-transition"
+                className="absolute top-4 right-4 w-8 h-8 bg-blood-red rounded-full flex items-center justify-center hover:bg-federal-blue smooth-transition shadow-lg shadow-blood-red/50"
               >
                 <X className="w-4 h-4 text-eggshell" />
               </button>
@@ -131,20 +131,20 @@ const WorkSection = () => {
               {/* Story Content */}
               <div className="text-center mb-6">
                 <h2 className="text-3xl font-bold text-eggshell mb-2">{selectedStory.name}</h2>
-                <p className="text-xl text-glaucous italic">{selectedStory.role}</p>
+                <p className="text-xl text-blood-red italic">{selectedStory.role}</p>
               </div>
 
               {/* Video Placeholder */}
-              <div className="bg-federal-blue rounded-lg p-8 mb-6 text-center">
-                <p className="text-glaucous mb-4">Video Story</p>
-                <div className="w-16 h-16 bg-glaucous/20 rounded-full mx-auto flex items-center justify-center">
-                  <Eye className="w-8 h-8 text-glaucous" />
+              <div className="bg-federal-blue/30 rounded-lg p-8 mb-6 text-center border border-federal-blue/50">
+                <p className="text-eggshell/80 mb-4">Video Story</p>
+                <div className="w-16 h-16 bg-blood-red/20 rounded-full mx-auto flex items-center justify-center border border-blood-red/50">
+                  <Eye className="w-8 h-8 text-blood-red" />
                 </div>
               </div>
 
               {/* Story Text */}
               <div className="prose prose-invert max-w-none">
-                <p className="text-glaucous leading-relaxed text-lg">{selectedStory.story}</p>
+                <p className="text-eggshell/80 leading-relaxed text-lg">{selectedStory.story}</p>
               </div>
             </motion.div>
           </motion.div>

@@ -152,7 +152,7 @@ const ChallengeSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8, delay: 2.5 }}
-            className="text-2xl md:text-3xl italic text-glaucous mb-16 font-light"
+            className="text-2xl md:text-3xl italic text-eggshell/80 mb-16 font-light"
           >
             The backbone of India's economy — unseen, unrepresented, unheard.
           </motion.p>
@@ -272,7 +272,7 @@ const ChallengeSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8, delay: 8.4 }}
             onClick={scrollToWork}
-            className="bg-blood-red text-eggshell px-12 py-6 rounded-xl text-xl font-bold hover:bg-glaucous hover:scale-105 smooth-transition shadow-2xl"
+            className="bg-blood-red text-eggshell px-12 py-6 rounded-xl text-xl font-bold hover:bg-federal-blue hover:scale-105 smooth-transition shadow-2xl shadow-blood-red/50"
           >
             See How
           </motion.button>

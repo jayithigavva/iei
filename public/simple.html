@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informal Economy Index (IEI)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav h1 {
+            font-size: 24px;
+            color: #ef476f;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #ef476f;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffd166, #ef476f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: #a8b3c7;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #ef476f;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(239, 71, 111, 0.3);
+        }
+        
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+        
+        section h3 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(239, 71, 111, 0.2);
+        }
+        
+        .card h4 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #ffd166;
+        }
+        
+        .card p {
+            color: #a8b3c7;
+            line-height: 1.6;
+        }
+        
+        /* Dashboard Styles */
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            background: #ef476f;
+            border-color: #ef476f;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        canvas {
+            max-width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #a8b3c7;
+            font-size: 14px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        button[type="submit"] {
+            background: #ef476f;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button[type="submit"]:hover {
+            background: #d63f5f;
+            transform: translateY(-2px);
+        }
+        
+        .score-display {
+            background: linear-gradient(135deg, rgba(239, 71, 111, 0.2), rgba(255, 209, 102, 0.2));
+            border: 2px solid #ef476f;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .score-number {
+            font-size: 72px;
+            font-weight: bold;
+            color: #ffd166;
+            margin: 20px 0;
+        }
+        
+        .recommendations {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+        
+        .recommendation-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ef476f;
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px 0;
+            text-align: center;
+            color: #a8b3c7;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <h1>IEI</h1>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>Informal Economy Index</h2>
+            <p>India's first youth-led index tracking the 90% working in the informal economy. Making the unseen visible through data.</p>
+            <a href="#dashboard" class="btn">Explore Dashboard</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h3>About the Project</h3>
+            <div class="grid">
+                <div class="card">
+                    <h4>📊 Data Collection</h4>
+                    <p>We gather comprehensive data from informal workers across India to quantify their economic vulnerability.</p>
+                </div>
+                <div class="card">
+                    <h4>🎯 IEI Score</h4>
+                    <p>Our proprietary Informal Economy Index (IEI) measures vulnerability across 5 key dimensions: Income, Social Security, Debt, Skills, and Mobility.</p>
+                </div>
+                <div class="card">
+                    <h4>💡 Policy Impact</h4>
+                    <p>Data-driven insights inform policy makers and organizations to create targeted interventions for informal workers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard">
+        <div class="container">
+            <h3>IEI Dashboard</h3>
+            
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('survey')">Survey</button>
+                <button class="tab-btn" onclick="switchTab('results')">Dashboard</button>
+            </div>
+
+            <!-- Survey Tab -->
+            <div id="survey-tab" class="tab-content active">
+                <form id="iei-form" onsubmit="calculateIEI(event)">
+                    <h4 style="margin-bottom: 30px;">IEI Survey Form</h4>
+                    
+                    <div class="form-row">
+                        <div>
+                            <label>Name</label>
+                            <input type="text" name="name" placeholder="e.g., Geeta" required>
+                        </div>
+                        <div>
+                            <label>Age</label>
+                            <input type="number" name="age" min="15" max="80" placeholder="e.g., 32" required>
+                        </div>
+                        <div>
+                            <label>Gender</label>
+                            <select name="gender" required>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div>
+                            <label>Highest Education</label>
+                            <select name="education">
+                                <option>Illiterate</option>
+                                <option>Up to Class 5</option>
+                                <option>Up to Class 10</option>
+                                <option>12th or above</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Type of Work</label>
+                            <select name="work">
+                                <option>Street vendor</option>
+                                <option>Daily wage laborer</option>
+                                <option>Domestic worker</option>
+                                <option>Tailor/Embroiderer</option>
+                                <option>Gig worker</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Hours per day</label>
+                            <input type="number" name="hours" min="0" max="18" placeholder="e.g., 9" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div>
+                            <label>Days earning < ₹300 per month</label>
+                            <input type="number" name="lt300" min="0" max="30" placeholder="e.g., 18" required>
+                        </div>
+                        <div>
+                            <label>Currently in debt?</label>
+                            <select name="debt">
+                                <option>No</option>
+                                <option>Yes</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Bank account</label>
+                            <select name="bank">
+                                <option>No</option>
+                                <option>Yes</option>
+                                <option>Jan Dhan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div>
+                            <label>e-Shram card</label>
+                            <select name="eShram">
+                                <option>No</option>
+                                <option>Yes</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>PM-JAY (Health)</label>
+                            <select name="pmjay">
+                                <option>No</option>
+                                <option>Yes</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Ever taken skill training?</label>
+                            <select name="training">
+                                <option>No</option>
+                                <option>Yes</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div>
+                            <label>Migrated from another state?</label>
+                            <select name="migrant">
+                                <option>No</option>
+                                <option>Yes</option>
+                                <option>Seasonal</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>If training, what job would you want?</label>
+                            <input type="text" name="aspiration" placeholder="e.g., tailoring, electrician">
+                        </div>
+                    </div>
+
+                    <button type="submit">Compute IEI Score</button>
+                </form>
+            </div>
+
+            <!-- Results Tab -->
+            <div id="results-tab" class="tab-content">
+                <div id="results-content">
+                    <p style="text-align: center; color: #a8b3c7; padding: 60px;">Submit the survey to see your IEI score and recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h3>Get In Touch</h3>
+            <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <h4>Contact Us</h4>
+                <p>For partnerships, data access, or inquiries about the Informal Economy Index:</p>
+                <p style="margin-top: 20px; font-size: 18px;"><strong>Email:</strong> contact@informaleconomyindex.org</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Informal Economy Index. Quantifying the Unseen.</p>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tab) {
+            const surveyTab = document.getElementById('survey-tab');
+            const resultsTab = document.getElementById('results-tab');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            if (tab === 'survey') {
+                surveyTab.classList.add('active');
+                resultsTab.classList.remove('active');
+                buttons[0].classList.add('active');
+                buttons[1].classList.remove('active');
+            } else {
+                surveyTab.classList.remove('active');
+                resultsTab.classList.add('active');
+                buttons[0].classList.remove('active');
+                buttons[1].classList.add('active');
+            }
+        }
+
+        function calculateIEI(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Calculate dimension scores
+            const lt300 = parseInt(data.lt300) || 0;
+            const hours = parseInt(data.hours) || 8;
+            const hasDebt = data.debt === 'Yes';
+            const hasBank = data.bank !== 'No';
+            const hasEShram = data.eShram === 'Yes';
+            const hasPMJAY = data.pmjay === 'Yes';
+            const hasTraining = data.training === 'Yes';
+            const isMigrant = data.migrant !== 'No';
+            
+            // Income vulnerability (0-100, higher = worse)
+            let incomeScore = 50;
+            incomeScore += (lt300 / 30) * 30;
+            if (hours > 10) incomeScore += (hours - 10) * 2;
+            incomeScore = Math.min(100, incomeScore);
+            
+            // Social security vulnerability
+            let socialScore = 80;
+            if (hasBank) socialScore -= 10;
+            if (hasEShram) socialScore -= 20;
+            if (hasPMJAY) socialScore -= 25;
+            socialScore = Math.max(0, socialScore);
+            
+            // Debt vulnerability
+            let debtScore = hasDebt ? 70 : 30;
+            
+            // Skills vulnerability
+            let skillsScore = 70;
+            if (data.education === '12th or above') skillsScore -= 15;
+            else if (data.education === 'Up to Class 10') skillsScore -= 5;
+            if (hasTraining) skillsScore -= 10;
+            skillsScore = Math.max(0, skillsScore);
+            
+            // Mobility vulnerability
+            let mobilityScore = isMigrant ? 60 : 30;
+            
+            // Overall IEI (weighted average)
+            const overallIEI = (
+                incomeScore * 0.30 +
+                socialScore * 0.25 +
+                debtScore * 0.20 +
+                skillsScore * 0.15 +
+                mobilityScore * 0.10
+            );
+            
+            // Display results
+            displayResults(data, {
+                overall: overallIEI,
+                income: incomeScore,
+                social: socialScore,
+                debt: debtScore,
+                skills: skillsScore,
+                mobility: mobilityScore
+            });
+            
+            // Switch to results tab
+            switchTab('results');
+        }
+
+        function displayResults(data, scores) {
+            const resultsDiv = document.getElementById('results-content');
+            const category = scores.overall >= 65 ? 'High Vulnerability' : 
+                           scores.overall >= 45 ? 'Moderate Vulnerability' : 'Lower Vulnerability';
+            
+            let html = `
+                <div class="score-display">
+                    <h4>IEI Overall Score for ${data.name}</h4>
+                    <div class="score-number">${scores.overall.toFixed(1)}</div>
+                    <p style="font-size: 20px; color: #ffd166;">${category}</p>
+                </div>
+                
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div class="card">
+                        <h4 style="color: #ffd166;">Income</h4>
+                        <p style="font-size: 24px; font-weight: bold;">${scores.income.toFixed(0)}/100</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: #06d6a0;">Social Security</h4>
+                        <p style="font-size: 24px; font-weight: bold;">${scores.social.toFixed(0)}/100</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: #ef476f;">Debt</h4>
+                        <p style="font-size: 24px; font-weight: bold;">${scores.debt.toFixed(0)}/100</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: #118ab2;">Skills</h4>
+                        <p style="font-size: 24px; font-weight: bold;">${scores.skills.toFixed(0)}/100</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: #a78bfa;">Mobility</h4>
+                        <p style="font-size: 24px; font-weight: bold;">${scores.mobility.toFixed(0)}/100</p>
+                    </div>
+                </div>
+                
+                <div class="recommendations">
+                    <h4 style="margin-bottom: 20px; font-size: 24px;">Ways to Decrease Vulnerability Score</h4>
+            `;
+            
+            // Income recommendations
+            if (scores.income >= 60) {
+                html += `
+                    <div class="recommendation-item">
+                        <h4 style="color: #ffd166; margin-bottom: 10px;">💰 Income (${scores.income.toFixed(0)}/100)</h4>
+                        <ul style="list-style: none; padding-left: 0; color: #a8b3c7;">
+                            <li>• Enroll in MGNREGA for guaranteed work days</li>
+                            <li>• Access DBT schemes for income support</li>
+                            <li>• Join worker collectives for better rates</li>
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            // Social security recommendations
+            if (scores.social >= 60) {
+                html += `
+                    <div class="recommendation-item">
+                        <h4 style="color: #06d6a0; margin-bottom: 10px;">🛡️ Social Security (${scores.social.toFixed(0)}/100)</h4>
+                        <ul style="list-style: none; padding-left: 0; color: #a8b3c7;">
+                            <li>• Register for e-Shram card immediately</li>
+                            <li>• Enroll in PM-JAY for health coverage</li>
+                            <li>• Open Jan Dhan bank account</li>
+                            <li>• Join PM-SYM for pension benefits</li>
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            // Debt recommendations
+            if (scores.debt >= 60) {
+                html += `
+                    <div class="recommendation-item">
+                        <h4 style="color: #ef476f; margin-bottom: 10px;">💳 Debt (${scores.debt.toFixed(0)}/100)</h4>
+                        <ul style="list-style: none; padding-left: 0; color: #a8b3c7;">
+                            <li>• Shift from moneylenders to SHG/bank loans</li>
+                            <li>• Debt counseling via local NGOs</li>
+                            <li>• Consolidate debts at lower interest rates</li>
+                            <li>• Build emergency savings (₹500-1000/month)</li>
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            // Skills recommendations
+            if (scores.skills >= 55) {
+                html += `
+                    <div class="recommendation-item">
+                        <h4 style="color: #118ab2; margin-bottom: 10px;">🎓 Skills (${scores.skills.toFixed(0)}/100)</h4>
+                        <ul style="list-style: none; padding-left: 0; color: #a8b3c7;">
+                            <li>• Enroll in skill training (e.g., ${data.aspiration || 'tailoring, electrician'})</li>
+                            <li>• Access PMKVY or state training programs</li>
+                            <li>• Get certified for better job prospects</li>
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            // Mobility recommendations
+            if (scores.mobility >= 55) {
+                html += `
+                    <div class="recommendation-item">
+                        <h4 style="color: #a78bfa; margin-bottom: 10px;">🚶 Mobility (${scores.mobility.toFixed(0)}/100)</h4>
+                        <ul style="list-style: none; padding-left: 0; color: #a8b3c7;">
+                            <li>• Apply for portable ration card (ONORC)</li>
+                            <li>• Link benefits to mobile number</li>
+                            <li>• Get ESIC for inter-state workers</li>
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+

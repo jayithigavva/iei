@@ -1,4 +1,4 @@
-import { TrendingUp, GraduationCap, Heart, Users } from "lucide-react";
+import { TrendingUp, GraduationCap, Heart, Users, BarChart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { motion, useInView } from "framer-motion";
@@ -12,31 +12,31 @@ const AboutSection = () => {
 
   const initiatives = [
     {
-      icon: GraduationCap,
-      title: "Enrolement Campaigns",
+      icon: TrendingUp,
+      title: "Building a Dashboard",
       description:
-        "We help informal workers understand available government schemes, guide them through the application process, and assist in completing registrations for around 100 workers. We track dropouts, required documents, and time per person, documenting challenges to streamline future registration efforts and ensure more workers benefit efficiently from these schemes.",
+        "Built a dashboard to survey informal workers across India and map their vulnerability to a score. The survey is holistic — considering debt cycles, income volatility, awareness and enrolment in government schemes, and migration patterns — to provide data-driven solutions for improving worker welfare.",
     },
     {
-      icon: TrendingUp,
-      title: "Building an Index",
+      icon: BarChart,
+      title: "Pilot Implementation",
       description:
-        "Based on slum surveys covering debt cycles, saving habits, income volatility, scheme awareness, migration patterns.",
-      isClickable: true,
+        "Held pilots across surveyed districts to test the accuracy of dashboard solutions. In Punjab, 80% of workers benefited — many opened bank accounts and exited debt. In Faridabad, 75% secured eShram cards and 70% of women started their own bank accounts. In Jaipur, 68% enrolled in government schemes through our awareness and enrolment campaigns. In Bhopal and Gwalior, a ₹40,000 emergency fund distributed to families reduced debt, saving, and income volatility by 45%, proving the dashboard’s success and accuracy.",
+    },
+    {
+      icon: Users,
+      title: "Pushing for Policy Reform",
+      description:
+        "After identifying enrolment struggles caused by migration and documentation gaps, we are advocating for reforms to make government schemes more accessible and portable across states. Our data-backed policy recommendations aim to ensure equitable benefits for all informal workers.",
     },
     {
       icon: Heart,
       title: "Donation Drives",
       description:
-        "Providing resources where they're most needed, directly impacting lives in informal communities.",
-    },
-    {
-      icon: Users,
-      title: "Pushing for Change",
-      description:
-        "We work to make government schemes and policies more accessible for informal workers by explaining benefits, guiding them through applications, and assisting with registrations.",
+        "Conducted donation and emergency support drives to provide immediate relief to vulnerable families. These initiatives directly addressed debt, savings, and income stability challenges, strengthening community resilience and trust.",
     },
   ];
+  
 
   const insightsData = [
     {
@@ -99,7 +99,7 @@ const AboutSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-xl text-accent-foreground max-w-3xl mx-auto leading-relaxed"
+            className="text-xl text-eggshell/80 max-w-3xl mx-auto leading-relaxed"
           >
             Bridging the gap between India's informal economy and formal recognition through data, education, and community empowerment.
           </motion.p>
@@ -108,6 +108,13 @@ const AboutSection = () => {
         {/* Initiatives Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {initiatives.map((initiative, index) => {
+            const colors = [
+              { bg: "from-blood-red/25 to-blood-red/10", icon: "bg-blood-red/30", iconHover: "bg-blood-red/50", text: "text-blood-red", border: "border-blood-red/40" },
+              { bg: "from-federal-blue/25 to-federal-blue/10", icon: "bg-federal-blue/30", iconHover: "bg-federal-blue/50", text: "text-federal-blue", border: "border-federal-blue/40" },
+              { bg: "from-blood-red/20 to-federal-blue/20", icon: "bg-eggshell/20", iconHover: "bg-eggshell/30", text: "text-eggshell", border: "border-eggshell/40" },
+              { bg: "from-federal-blue/25 to-blood-red/25", icon: "bg-gradient-to-br from-blood-red/30 to-federal-blue/30", iconHover: "from-blood-red/50 to-federal-blue/50", text: "text-blood-red", border: "border-blood-red/30" },
+            ][index];
+
             const isClickable = initiative.isClickable;
 
             return (
@@ -117,54 +124,28 @@ const AboutSection = () => {
                 animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
                 transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
               >
-                {/* Clickable wrapper for "Building an Index" */}
-                {isClickable ? (
-                  <div
-                    role="button"
-                    tabIndex={0}
-                    onClick={handleBuildingIndexClick}
-                    onKeyDown={(e) => handleKeyPress(e, handleBuildingIndexClick)}
-                    className={`cursor-pointer group h-full smooth-transition ${
-                      isLoading ? "pointer-events-none opacity-70 animate-pulse" : ""
-                    }`}
-                  >
-                    <Card className="h-full bg-card border border-border hover:shadow-2xl hover:scale-105">
-                      <CardContent className="p-8 text-center">
-                        <div className="mb-6 flex justify-center">
-                          <div className="w-16 h-16 rounded-full flex items-center justify-center bg-primary/20 group-hover:bg-primary/40">
-                            <initiative.icon className="w-8 h-8 text-primary group-hover:scale-110" />
-                          </div>
-                        </div>
-                        <h3 className="text-xl font-bold mb-4 text-primary group-hover:text-red-600">
-                          {initiative.title} <span className="animate-pulse pointer-events-none">🔍</span>
-                        </h3>
-                        <p className="text-muted-foreground leading-relaxed pointer-events-none">{initiative.description}</p>
-                        <span className="block mt-3 text-primary font-bold bg-primary/10 px-3 py-2 rounded-lg border border-primary/30 animate-pulse pointer-events-none">
-                          {isLoading ? (
-                            <span className="flex items-center justify-center gap-2">
-                              <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-                              Loading insights...
-                            </span>
-                          ) : (
-                            <>Click to explore data insights</>
-                          )}
-                        </span>
-                      </CardContent>
-                    </Card>
-                  </div>
-                ) : (
-                  <Card className="h-full bg-card border border-border hover:shadow-lg">
-                    <CardContent className="p-8 text-center">
-                      <div className="mb-6 flex justify-center">
-                        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-primary/20 group-hover:bg-primary/30">
-                          <initiative.icon className="w-8 h-8 text-primary" />
-                        </div>
+                <Card className={`h-full bg-gradient-to-br ${colors.bg} border ${colors.border} hover:shadow-2xl hover:scale-105 smooth-transition backdrop-blur-sm`}>
+                  <CardContent className="p-8 text-center">
+                    <div className="mb-6 flex justify-center">
+                      <div className={`w-20 h-20 rounded-full flex items-center justify-center ${colors.icon} group-hover:${colors.iconHover} smooth-transition`}>
+                        <initiative.icon className={`w-10 h-10 ${colors.text}`} />
                       </div>
-                      <h3 className="text-xl font-bold mb-4 text-foreground">{initiative.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{initiative.description}</p>
-                    </CardContent>
-                  </Card>
-                )}
+                    </div>
+                    <h3 className={`text-xl font-bold mb-4 ${colors.text}`}>
+                      {initiative.title}
+                    </h3>
+                    <p className="text-eggshell/80 leading-relaxed">{initiative.description}</p>
+                    {isClickable && (
+                      <button
+                        onClick={handleBuildingIndexClick}
+                        disabled={isLoading}
+                        className={`mt-4 ${colors.text} font-bold bg-eggshell/10 hover:bg-eggshell/20 px-4 py-2 rounded-lg border ${colors.border} smooth-transition`}
+                      >
+                        {isLoading ? 'Loading...' : 'View Data Insights 🔍'}
+                      </button>
+                    )}
+                  </CardContent>
+                </Card>
               </motion.div>
             );
           })}

@@ -1,73 +1,126 @@
-# Welcome to your Lovable project
+# Informal Economy Index (IEI) - Website & Dashboard
 
-## Project info
+India's first youth-led index tracking the 90% working in the informal economy. Making the unseen visible through data, education, and community empowerment.
 
-**URL**: https://lovable.dev/projects/f4336d9f-1680-40f0-9b9b-9dabe0b5beec
+## 🚀 Quick Start
 
-## How can I edit this code?
+### Prerequisites
+- Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/f4336d9f-1680-40f0-9b9b-9dabe0b5beec) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+### Installation
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Clone the repository
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Navigate to the project directory
+cd informal-index-voice-main
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## 🛠️ Technologies Used
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **Vite** - Build tool
+- **TypeScript** - Type-safe JavaScript
+- **React** - UI framework
+- **shadcn-ui** - Component library
+- **Tailwind CSS** - Styling
+- **Firebase Hosting** - Deployment
 
-**Use GitHub Codespaces**
+## 📊 Features
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Main Website
+- Hero section with call-to-action
+- Challenge section highlighting informal economy statistics
+- What We Do - Our initiatives and impact
+- Real Stories - QR-coded worker stories
+- Data-Driven Insights with interactive charts
+- Partnerships showcase
+- Founder section
+- Contact form
 
-## What technologies are used for this project?
+### IEI Dashboard
+- **Bilingual Support:** English & Hindi with voice assistance
+- **Survey Form:** Comprehensive IEI survey (7 sections)
+- **IEI Scoring:** 5-dimension vulnerability assessment
+  - Income (30%)
+  - Social Security (25%)
+  - Debt (20%)
+  - Skills (15%)
+  - Mobility (10%)
+- **Live Visualizations:** Bar charts, heatmaps
+- **Personalized Recommendations:** Dimension-specific action items
+- **Google Sheets Integration:** Real-time data sync
 
-This project is built with:
+## 🔥 Deployment (Firebase)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```sh
+# Build for production
+npm run build
 
-## How can I deploy this project?
+# Deploy to Firebase
+firebase deploy --only hosting
+```
 
-Simply open [Lovable](https://lovable.dev/projects/f4336d9f-1680-40f0-9b9b-9dabe0b5beec) and click on Share -> Publish.
+**Live URL:** https://informal-economy-index.web.app
 
-## Can I connect a custom domain to my Lovable project?
+## IEI Dashboard (Sheets integration)
 
-Yes, you can!
+Create a `.env` file at the project root with optional keys:
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```
+VITE_IEI_SHEET_CSV_URL=
+VITE_GSCRIPT_WEBAPP_URL=
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- VITE_IEI_SHEET_CSV_URL: Publish a sheet to the web as CSV that contains columns `District,Mean,Min,Max,Count` in the first five columns. Paste the CSV link here to hydrate district stats.
+- VITE_GSCRIPT_WEBAPP_URL: Deploy the Apps Script below as a Web App and paste the URL to enable writing new survey submissions to your sheet.
+
+Apps Script (Code.gs):
+
+```
+function doPost(e) {
+  var ss = SpreadsheetApp.openById('YOUR_SHEET_ID');
+  var sheet = ss.getSheetByName('Form Responses 1');
+  var data = JSON.parse(e.postData.contents || '{}');
+  
+  // Match exact column order from your Google Sheet
+  sheet.appendRow([
+    new Date(), // Timestamp
+    data.name || '',
+    data.age || '',
+    data.gender || '',
+    data.education || '',
+    data.migrant || '',
+    data.hours || '',
+    data.night || '',
+    data.lt300 || '',
+    data.workType || '',
+    data.contract || '',
+    data.debt || '',
+    data.debtSrc || '',
+    data.save || '',
+    data.saveAmt || '',
+    data.eShram || '',
+    data.bank || '',
+    data.schemes || '',
+    data.educationLevel || '',
+    data.trained || '',
+    data.move || '',
+    data.moveWithFamily || '',
+    data.aspiration || '',
+    data.overall || '',
+    JSON.stringify(data.dim || {})
+  ]);
+  
+  return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+```
+
+Deploy: Deploy -> New deployment -> Web app -> Execute as Me, Who has access: Anyone with the link. Replace `YOUR_SHEET_ID` with the ID from your sheet URL.

@@ -75,13 +75,14 @@ const ResearchInsightsSection = () => {
   }, [isInView, insights.length]);
 
   return (
-    <section ref={ref} className="section-padding bg-oxford-blue relative overflow-hidden">
-      <div className="absolute inset-0 opacity-5">
+    <section ref={ref} className="section-padding bg-gradient-to-br from-oxford-blue via-federal-blue to-oxford-blue relative overflow-hidden">
+      <div className="absolute inset-0 opacity-10">
         <div className="animated-stripes"></div>
       </div>
       
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-30">
         <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-blood-red to-transparent animate-[scanLine_3s_ease-in-out_infinite]"></div>
+        <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-federal-blue to-transparent animate-[scanLine_4s_ease-in-out_infinite]" style={{marginTop: '40%'}}></div>
       </div>
 
       <div className="container-width mx-auto relative z-10">
@@ -93,9 +94,9 @@ const ResearchInsightsSection = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-eggshell">Data-Driven </span>
-            <span className="text-blood-red">Insights</span>
+            <span className="bg-gradient-to-r from-blood-red to-federal-blue bg-clip-text text-transparent">Insights</span>
           </h2>
-          <p className="text-glaucous text-lg max-w-3xl mx-auto">
+          <p className="text-eggshell/80 text-xl max-w-3xl mx-auto font-light">
             Understanding India's Informal Economy Through Numbers
           </p>
         </motion.div>
@@ -106,7 +107,7 @@ const ResearchInsightsSection = () => {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <Card className="card-shadow bg-eggshell/5 border-glaucous/20 backdrop-blur-sm">
+            <Card className="card-shadow bg-gradient-to-br from-blood-red/10 to-federal-blue/10 border-2 border-blood-red/30 backdrop-blur-sm">
               <CardContent className="p-8">
                 <motion.div
                   key={activeInsight}
@@ -114,37 +115,37 @@ const ResearchInsightsSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <h3 className="text-2xl font-bold text-blood-red mb-4">
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-blood-red to-federal-blue bg-clip-text text-transparent mb-4">
                     {insights[activeInsight].title}
                   </h3>
-                  <p className="text-glaucous mb-6 text-lg">
+                  <p className="text-eggshell mb-6 text-lg font-light">
                     {insights[activeInsight].description}
                   </p>
-                  <ul className="space-y-3">
+                  <ul className="space-y-4">
                     {insights[activeInsight].points.map((point, index) => (
                       <motion.li
                         key={index}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.4, delay: index * 0.1 }}
-                        className="flex items-start gap-3 text-eggshell"
+                        className="flex items-start gap-3 text-eggshell/90 text-base"
                       >
-                        <div className="w-2 h-2 bg-federal-blue rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="w-3 h-3 bg-blood-red rounded-full mt-1.5 flex-shrink-0 shadow-lg shadow-blood-red/50"></div>
                         <span>{point}</span>
                       </motion.li>
                     ))}
                   </ul>
                 </motion.div>
 
-                <div className="flex gap-2 mt-8 justify-center">
+                <div className="flex gap-3 mt-8 justify-center">
                   {insights.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setActiveInsight(index)}
-                      className={`w-3 h-3 rounded-full smooth-transition ${
+                      className={`w-4 h-4 rounded-full smooth-transition border-2 ${
                         index === activeInsight 
-                          ? 'bg-blood-red' 
-                          : 'bg-glaucous/30 hover:bg-glaucous/50'
+                          ? 'bg-blood-red border-blood-red shadow-lg shadow-blood-red/50' 
+                          : 'bg-transparent border-glaucous/50 hover:border-glaucous'
                       }`}
                     />
                   ))}
@@ -177,58 +178,62 @@ const ResearchInsightsSection = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="grid md:grid-cols-3 gap-8"
         >
-          <Card className="card-shadow bg-eggshell/5 border-glaucous/20 backdrop-blur-sm">
+          <Card className="card-shadow bg-gradient-to-br from-blood-red/10 to-blood-red/5 border-2 border-blood-red/30 backdrop-blur-sm hover:scale-105 smooth-transition">
             <CardContent className="p-6">
-              <h4 className="text-lg font-semibold text-blood-red mb-4">Education vs Work Hours</h4>
+              <h4 className="text-lg font-semibold text-blood-red mb-4 flex items-center gap-2">
+                <span className="text-2xl">📚</span> Education vs Work Hours
+              </h4>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={educationData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(167, 172, 175, 0.2)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(239, 71, 111, 0.1)" />
                   <XAxis 
                     dataKey="level" 
-                    tick={{ fill: '#A7ACAF', fontSize: 12 }}
-                    axisLine={{ stroke: '#A7ACAF' }}
+                    tick={{ fill: '#F4F1EC', fontSize: 12 }}
+                    axisLine={{ stroke: '#EF476F' }}
                   />
                   <YAxis 
-                    tick={{ fill: '#A7ACAF', fontSize: 12 }}
-                    axisLine={{ stroke: '#A7ACAF' }}
+                    tick={{ fill: '#F4F1EC', fontSize: 12 }}
+                    axisLine={{ stroke: '#EF476F' }}
                   />
                   <Tooltip 
                     contentStyle={{ 
-                      backgroundColor: 'rgba(22, 41, 71, 0.9)', 
-                      border: '1px solid #A7ACAF',
-                      borderRadius: '8px',
+                      backgroundColor: 'rgba(239, 71, 111, 0.95)', 
+                      border: '2px solid #F4F1EC',
+                      borderRadius: '12px',
                       color: '#F4F1EC'
                     }}
                   />
-                  <Bar dataKey="workHours" fill="#DC2626" />
+                  <Bar dataKey="workHours" fill="#EF476F" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
 
-          <Card className="card-shadow bg-eggshell/5 border-glaucous/20 backdrop-blur-sm">
+          <Card className="card-shadow bg-gradient-to-br from-federal-blue/10 to-federal-blue/5 border-2 border-federal-blue/30 backdrop-blur-sm hover:scale-105 smooth-transition">
             <CardContent className="p-6">
-              <h4 className="text-lg font-semibold text-blood-red mb-4">Financial Correlations</h4>
+              <h4 className="text-lg font-semibold text-federal-blue mb-4 flex items-center gap-2">
+                <span className="text-2xl">💹</span> Financial Correlations
+              </h4>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={correlationData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(167, 172, 175, 0.2)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(30, 83, 144, 0.1)" />
                   <XAxis 
                     dataKey="metric" 
-                    tick={{ fill: '#A7ACAF', fontSize: 10 }}
-                    axisLine={{ stroke: '#A7ACAF' }}
+                    tick={{ fill: '#F4F1EC', fontSize: 10 }}
+                    axisLine={{ stroke: '#1E5390' }}
                     angle={-45}
                     textAnchor="end"
                     height={60}
                   />
                   <YAxis 
-                    tick={{ fill: '#A7ACAF', fontSize: 12 }}
-                    axisLine={{ stroke: '#A7ACAF' }}
+                    tick={{ fill: '#F4F1EC', fontSize: 12 }}
+                    axisLine={{ stroke: '#1E5390' }}
                   />
                   <Tooltip 
                     contentStyle={{ 
-                      backgroundColor: 'rgba(22, 41, 71, 0.9)', 
-                      border: '1px solid #A7ACAF',
-                      borderRadius: '8px',
+                      backgroundColor: 'rgba(30, 83, 144, 0.95)', 
+                      border: '2px solid #F4F1EC',
+                      borderRadius: '12px',
                       color: '#F4F1EC'
                     }}
                   />
@@ -238,34 +243,36 @@ const ResearchInsightsSection = () => {
             </CardContent>
           </Card>
 
-          <Card className="card-shadow bg-eggshell/5 border-glaucous/20 backdrop-blur-sm">
+          <Card className="card-shadow bg-gradient-to-br from-glaucous/10 to-glaucous/5 border-2 border-glaucous/30 backdrop-blur-sm hover:scale-105 smooth-transition">
             <CardContent className="p-6">
-              <h4 className="text-lg font-semibold text-blood-red mb-4">Scheme Enrollment Gap</h4>
+              <h4 className="text-lg font-semibold text-glaucous mb-4 flex items-center gap-2">
+                <span className="text-2xl">🎯</span> Scheme Enrollment Gap
+              </h4>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={socialSecurityData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(167, 172, 175, 0.2)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(107, 132, 163, 0.1)" />
                   <XAxis 
                     dataKey="scheme" 
-                    tick={{ fill: '#A7ACAF', fontSize: 10 }}
-                    axisLine={{ stroke: '#A7ACAF' }}
+                    tick={{ fill: '#F4F1EC', fontSize: 10 }}
+                    axisLine={{ stroke: '#6B84A3' }}
                     angle={-45}
                     textAnchor="end"
                     height={60}
                   />
                   <YAxis 
-                    tick={{ fill: '#A7ACAF', fontSize: 12 }}
-                    axisLine={{ stroke: '#A7ACAF' }}
+                    tick={{ fill: '#F4F1EC', fontSize: 12 }}
+                    axisLine={{ stroke: '#6B84A3' }}
                   />
                   <Tooltip 
                     contentStyle={{ 
-                      backgroundColor: 'rgba(22, 41, 71, 0.9)', 
-                      border: '1px solid #A7ACAF',
-                      borderRadius: '8px',
+                      backgroundColor: 'rgba(107, 132, 163, 0.95)', 
+                      border: '2px solid #F4F1EC',
+                      borderRadius: '12px',
                       color: '#F4F1EC'
                     }}
                   />
-                  <Bar dataKey="enrolled" fill="#DC2626" />
-                  <Bar dataKey="aware" fill="#A7ACAF" />
+                  <Bar dataKey="enrolled" fill="#EF476F" />
+                  <Bar dataKey="aware" fill="#6B84A3" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -278,24 +285,25 @@ const ResearchInsightsSection = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="mt-16 text-center"
         >
-          <Card className="card-shadow bg-gradient-to-r from-blood-red/10 to-federal-blue/10 border-glaucous/20 backdrop-blur-sm">
-            <CardContent className="p-8">
+          <Card className="card-shadow bg-gradient-to-r from-blood-red/20 via-federal-blue/20 to-glaucous/20 border-2 border-blood-red/40 backdrop-blur-sm">
+            <CardContent className="p-10">
+              <h3 className="text-2xl font-bold text-eggshell mb-8">Key Statistics</h3>
               <div className="grid md:grid-cols-4 gap-8 text-center">
-                <div>
-                  <div className="text-3xl font-bold text-blood-red mb-2">42.4%</div>
-                  <div className="text-glaucous">Migrated for Work</div>
+                <div className="bg-blood-red/10 p-4 rounded-xl border border-blood-red/30">
+                  <div className="text-4xl font-bold text-blood-red mb-2 drop-shadow-lg">42.4%</div>
+                  <div className="text-eggshell/80 font-medium">Migrated for Work</div>
                 </div>
-                <div>
-                  <div className="text-3xl font-bold text-federal-blue mb-2">48.3%</div>
-                  <div className="text-glaucous">Women in Debt</div>
+                <div className="bg-federal-blue/10 p-4 rounded-xl border border-federal-blue/30">
+                  <div className="text-4xl font-bold text-federal-blue mb-2 drop-shadow-lg">48.3%</div>
+                  <div className="text-eggshell/80 font-medium">Women in Debt</div>
                 </div>
-                <div>
-                  <div className="text-3xl font-bold text-blood-red mb-2">1.8%</div>
-                  <div className="text-glaucous">PM-SYM Enrollment</div>
+                <div className="bg-blood-red/10 p-4 rounded-xl border border-blood-red/30">
+                  <div className="text-4xl font-bold text-blood-red mb-2 drop-shadow-lg">1.8%</div>
+                  <div className="text-eggshell/80 font-medium">PM-SYM Enrollment</div>
                 </div>
-                <div>
-                  <div className="text-3xl font-bold text-federal-blue mb-2">59%</div>
-                  <div className="text-glaucous">Took Skill Training</div>
+                <div className="bg-federal-blue/10 p-4 rounded-xl border border-federal-blue/30">
+                  <div className="text-4xl font-bold text-federal-blue mb-2 drop-shadow-lg">59%</div>
+                  <div className="text-eggshell/80 font-medium">Took Skill Training</div>
                 </div>
               </div>
             </CardContent>

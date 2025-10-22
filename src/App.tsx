@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import StoryPage from "./pages/StoryPage";
 import NotFound from "./pages/NotFound";
+import IEIDashboard from "./pages/IEIDashboard";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/story/:id" element={<StoryPage />} />
+          <Route path="/dashboard" element={<IEIDashboard />} />
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
