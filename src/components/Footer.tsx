@@ -2,9 +2,16 @@ import { Instagram, Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
   const scrollToSection = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Check if we're on the dashboard page
+    if (window.location.pathname === '/dashboard') {
+      // Navigate to home page with hash
+      window.location.href = `/#${id}`;
+    } else {
+      // We're on home page, just scroll
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
   };
 

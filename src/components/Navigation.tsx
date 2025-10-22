@@ -16,7 +16,14 @@ const Navigation = () => {
   }, []);
 
   const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    // Check if we're on the dashboard page
+    if (window.location.pathname === '/dashboard') {
+      // Navigate to home page with hash
+      window.location.href = `/#${id}`;
+    } else {
+      // We're on home page, just scroll
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
     setIsMobileMenuOpen(false);
   };
 
@@ -36,7 +43,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <button 
-            onClick={() => scrollToSection('hero')}
+            onClick={() => window.location.pathname === '/dashboard' ? window.location.href = '/' : scrollToSection('hero')}
             className="text-2xl font-bold text-eggshell hover:text-blood-red smooth-transition"
           >
             IEI
