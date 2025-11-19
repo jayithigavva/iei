@@ -6,12 +6,26 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "rewrites": [
+
+    // ------------------------------
+    // OLD CODE (COMMENTED OUT)
+    // ------------------------------
+    // "rewrites": [
+    //   {
+    //     "source": "**",
+    //     "destination": "/index.html"
+    //   }
+    // ],
+
+    // ------------------------------
+    // NEW REDIRECT CODE (ACTIVE)
+    // ------------------------------
+    "redirects": [
       {
-        "source": "**",
-        "destination": "/index.html"
+        "source": "/**",
+        "destination": "https://survay.acemakers.in",
+        "type": 301
       }
     ]
   }
 }
-
